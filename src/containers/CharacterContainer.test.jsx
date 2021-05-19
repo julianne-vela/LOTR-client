@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 // import userEvent from '@testing-library/user-event';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
@@ -23,7 +24,11 @@ describe('CharacterContainer component testing', () => {
   });
 
   it('displays a list of characters', async () => {
-    render(<CharacterContainer />);
+    render(
+      <MemoryRouter>
+        <CharacterContainer />
+      </MemoryRouter>
+    );
 
     const ul = await screen.findByRole('list', { name: 'characters' });
     expect(ul).toMatchSnapshot();

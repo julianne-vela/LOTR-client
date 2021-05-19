@@ -1,18 +1,17 @@
 /* eslint-disable no-undef */
 const webpack = require('webpack');
-const Dotenv = require('dotenv-webpack');
 const path = require('path');
 const HtmlPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
-// const env = Object.entries({
-//   ...require('dotenv').config(),
-//   ...process.env,
-// }).reduce((acc, [key, value]) => {
-//   acc[key] = value;
-//   return acc;
-// }, {});
+const env = Object.entries({
+  ...require('dotenv').config(),
+  ...process.env,
+}).reduce((acc, [key, value]) => {
+  acc[key] = value;
+  return acc;
+}, {});
 
 // eslint-disable-next-line
 module.exports = {
@@ -29,16 +28,13 @@ module.exports = {
   plugins: [
     new HtmlPlugin({ template: './src/index.html' }),
     new CleanWebpackPlugin(),
-    new Dotenv({
-      path: './.env',
-    }),
+    new webpack.EnvironmentPlugin(env),
     new CopyPlugin({
       patterns: [{ from: 'public' }],
     }),
   ],
   resolve: {
     extensions: ['.js', '.jsx'],
-    fallback: { path: false },
   },
   module: {
     rules: [

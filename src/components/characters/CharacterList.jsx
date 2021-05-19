@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import CharacterCard from './CharacterCard';
 
 const CharacterList = ({ characters }) => {
@@ -7,7 +8,9 @@ const CharacterList = ({ characters }) => {
     <ul aria-label="characters">
       {characters.map((character) => (
         <li key={character.id}>
-          <CharacterCard {...character} />
+          <Link to={`/characters/${character.id}`}>
+            <CharacterCard {...character} />
+          </Link>
         </li>
       ))}
     </ul>
