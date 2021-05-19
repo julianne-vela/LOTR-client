@@ -1,14 +1,25 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect } from 'react';
+import Loading from '../components/app/Loading';
+import CharacterList from '../components/characters/CharacterList';
+import fetchCharacters from '../services/api-utils';
 
-function CharacterContainer() {
+const CharacterContainer = () => {
+  const [loading, setLoading] = useState(true);
+  const [characters, setCharacters] = useState([]);
+
+  useEffect(() => {
+    fetchCharacters()
+      .then((characters) => setCharacters(characters))
+      .finally(() => setLoading(false));
+  });
+
+  if (loading) return <Loading />;
+
   return (
     <main className="main-container">
-      <h1>Hello World!</h1>
+      <CharacterList characters={characters} />
     </main>
   );
-}
-
-CharacterContainer.propTypes = {};
+};
 
 export default CharacterContainer;

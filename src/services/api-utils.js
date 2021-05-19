@@ -1,24 +1,22 @@
-const URL = 'https://the-one-api.dev/v2';
-
 const fetchCharacters = async () => {
-  const res = await fetch(`${URL}/character`, {
+  const res = await fetch('https://the-one-api.dev/v2/character?limit=25', {
     headers: {
-      Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
+      Authorization: process.env.ACCESS_TOKEN,
     },
   });
 
-  const results = await res.json();
+  const { docs } = await res.json();
 
-  return results.map((character) => ({
+  return docs.map((character) => ({
     id: character._id,
-    race: character.race,
-    gender: character.gender,
-    birth: character.birth,
-    spouse: character.spouse,
-    death: character.death,
-    realm: character.realm,
     name: character.name,
+    race: character.race,
+    spouse: character.spouse,
+    gender: character.gender,
     hair: character.hair,
+    realm: character.realm,
+    birth: character.birth,
+    death: character.death,
     url: character.wikiUrl,
   }));
 };
