@@ -10,6 +10,7 @@ A custom React app (with hooks) that allows you to search your favorite Lord of 
     - [x] List Item
     - [ ] Styling
   - [ ] Character Detail Page
+    - [x] Character Details
     - [ ] Styling
   - [ ] Header
     - [x] Navbar

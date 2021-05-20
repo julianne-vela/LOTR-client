@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import style from '../../styles/Characters.css';
 
 const CharacterCard = ({ name, race }) => {
   return (
-    <article>
+    <article className={style.characterCard}>
       <span>Name: {name}</span>
       <span>Race: {race}</span>
     </article>

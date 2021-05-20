@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import CharacterCard from './CharacterCard';
+import style from '../../styles/Characters.css';
 
 const CharacterList = ({ characters }) => {
   return (
-    <ul aria-label="characters">
+    <ul aria-label="characters" className={style.characterList}>
       {characters.map((character) => (
         <li key={character.id}>
           <Link to={`characters/${character.id}`}>
