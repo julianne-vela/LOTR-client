@@ -1,44 +1,29 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useParams } from 'react-router-dom';
+import { useCharacters } from '../../hooks/useCharacters';
+import { useOne } from '../../hooks/useOne';
+import Loading from '../app/Loading';
 
-const CharacterDetails = ({
-  name,
-  race,
-  spouse,
-  gender,
-  hair,
-  realm,
-  birth,
-  death,
-  url,
-}) => {
+const CharacterDetails = () => {
+  const { id } = useParams();
+  const { loading, characters } = useCharacters();
+  const character = useOne(id, characters);
+
+  if (loading) return <Loading />;
+
   return (
     <section>
-      <p>
-        <span>Name: {name}</span>
-        <span>Race: {race}</span>
-        <span>Spouse: {spouse}</span>
-        <span>Gender: {gender}</span>
-        <span>Hair Color: {hair}</span>
-        <span>Realm: {realm}</span>
-        <span>Birth: {birth}</span>
-        <span>Deceased: {death}</span>
-        <span>Learn More: {url}</span>
-      </p>
+      <span>Name: {character.name}</span>
+      <span>Race: {character.race}</span>
+      <span>Spouse: {character.spouse}</span>
+      <span>Gender: {character.gender}</span>
+      <span>Hair Color: {character.hair}</span>
+      <span>Realm: {character.realm}</span>
+      <span>Birth: {character.birth}</span>
+      <span>Deceased: {character.death}</span>
+      <span>Learn More: {character.url}</span>
     </section>
   );
-};
-
-CharacterDetails.propTypes = {
-  birth: PropTypes.string.isRequired,
-  death: PropTypes.string.isRequired,
-  gender: PropTypes.string.isRequired,
-  hair: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  race: PropTypes.string.isRequired,
-  realm: PropTypes.string.isRequired,
-  spouse: PropTypes.string.isRequired,
-  url: PropTypes.string.isRequired,
 };
 
 export default CharacterDetails;

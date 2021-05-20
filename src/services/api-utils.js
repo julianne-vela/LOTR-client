@@ -1,10 +1,17 @@
-const fetchCharacters = async () => {
-  const res = await fetch('https://the-one-api.dev/v2/character?limit=25', {
+const fetchCharacters = async (id = null) => {
+  let requestURL;
+
+  if (id) {
+    requestURL = `https://the-one-api.dev/v2/character/${id}`;
+  } else {
+    requestURL = 'https://the-one-api.dev/v2/character?limit=25';
+  }
+
+  const res = await fetch(requestURL, {
     headers: {
       Authorization: process.env.ACCESS_TOKEN,
     },
   });
-
   const { docs } = await res.json();
 
   return docs.map((character) => ({
