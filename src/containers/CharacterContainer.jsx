@@ -1,25 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Loading from '../components/app/Loading';
 import CharacterList from '../components/characters/CharacterList';
-import fetchCharacters from '../services/api-utils';
+import { useCharacters } from '../hooks/useCharacters';
 
 const CharacterContainer = () => {
-  const [loading, setLoading] = useState(true);
-  const [characters, setCharacters] = useState([]);
-
-  useEffect(() => {
-    let mounted = true;
-    fetchCharacters()
-      .then((characters) => {
-        if (mounted) {
-          setCharacters(characters);
-        }
-      })
-      .finally(() => setLoading(false));
-
-    return () => (mounted = false);
-  }, []);
-
+  const { characters, loading } = useCharacters();
   if (loading) return <Loading />;
 
   return (
